@@ -1,7 +1,7 @@
 <template>
   <div class="task-card my-style">
     <div>
-      <h4>{{ model.title }}</h4>
+      <h4 :class="{ done: model.status }">{{ model.title }}</h4>
       <p>{{ model.description }}</p>
     </div>
     <div>
@@ -13,6 +13,7 @@
 
 <script>
 export default {
+  emits: ["onDone", "onRemove"],
   props: {
     model: {
       required: true,
@@ -45,5 +46,8 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.done {
+  text-decoration: line-through;
 }
 </style>

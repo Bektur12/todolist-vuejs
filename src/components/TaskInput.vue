@@ -1,14 +1,40 @@
 <template>
   <div class="task-input my-list">
-    <input type="text" />
-    <input type="text" />
-    <button>Add Task</button>
+    <input v-model="title" placeholder="Title" type="text" />
+    <input v-model="description" placeholder="Description" type="text" />
+    <button @click="onAddTask">Add Task</button>
   </div>
 </template>
 
 <script>
+import { ref } from "vue";
+
 export default {
-  setup() {},
+  emits: {
+    onAddTask({ title, description }) {
+      if (!title.trim() && !description.trim()) {
+        alert("Fill some info please!");
+        return false;
+      }
+      return true;
+    },
+  },
+  setup(props, { emit }) {
+    const title = ref("");
+    const description = ref("");
+
+    const onAddTask = () => {
+      emit("onAddTask", { title: title.value, description: description.value });
+      title.value = "";
+      description.value = "";
+    };
+
+    return {
+      title,
+      description,
+      onAddTask,
+    };
+  },
 };
 </script>
 
