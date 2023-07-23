@@ -1,5 +1,14 @@
-<script setup></script>
+<template>
+  <TaskCard></TaskCard>
+</template>
 
-<template></template>
+<script>
+import TaskCard from "./components/TaskCard.vue";
 
-<style scoped></style>
+export default {
+  name: "App",
+  components: {
+    TaskCard,
+  },
+};
+</script>
