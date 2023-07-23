@@ -1,20 +1,49 @@
 <template>
-  <div>
+  <div class="task-card my-style">
     <div>
-      <h4></h4>
-      <p></p>
+      <h4>{{ model.title }}</h4>
+      <p>{{ model.description }}</p>
     </div>
     <div>
-      <button>add</button>
-      <button>delete</button>
+      <button @click="emitOnDone" v-if="!model.status">add</button>
+      <button @click="emitOnRemove" v-else>delete</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  setup() {},
+  props: {
+    model: {
+      required: true,
+      default: {
+        id: 0,
+        title: "CreateVideo",
+        description: "And upload on YouTube",
+        status: false,
+      },
+    },
+  },
+  setup(props, { emit }) {
+    const emitOnDone = () => {
+      emit("onDone");
+    };
+    const emitOnRemove = () => {
+      emit("onRemove");
+    };
+
+    return {
+      emitOnDone,
+      emitOnRemove,
+    };
+  },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.task-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>
